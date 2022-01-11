@@ -80,17 +80,6 @@ function html() {
         .pipe(gulp.dest(path.build.html));
 }
 
-function htmlPages() {
-    return gulp.src(path.src.pages) 
-        .pipe(fileInclude({
-            prefix: "@@"
-        }))
-        .pipe(webpHTML())
-        .pipe(htmlmin({ collapseWhitespace: true }))
-        .pipe(rename({ extname: ".min.html" }))
-        .pipe(gulp.dest(path.build.pages));
-}
-
 const sassFunc = gulpSass(dartSass);
 function sass() {
     return gulp.src(path.src.scss)
@@ -163,7 +152,6 @@ function browserSync() {
     }),
         gulp.watch(path.watch.html, gulp.series(html)).on("change", sync.reload),
         gulp.watch(path.watch.html_modules, gulp.series(html, htmlPages)).on("change", sync.reload),
-        gulp.watch(path.watch.pages, gulp.series(htmlPages)).on("change", sync.reload),
         gulp.watch(path.watch.scss, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.scss_modules, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.js, gulp.series(js)).on("change", sync.reload),
@@ -178,5 +166,5 @@ const clear = () => del(path.clean);
 
 const css = gulp.parallel(sass, resetCSS);
 const js = gulp.parallel(javaSrcipt, libs);
-const build = gulp.parallel(img, svg, fonts, html, htmlPages, css, js);
+const build = gulp.parallel(img, svg, fonts, html, css, js);
 export default gulp.series(clear, build, browserSync);
