@@ -1,10 +1,44 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/linux,node,archlinuxpackages
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,node,archlinuxpackages
+
+### ArchLinuxPackages ###
+*.tar
+*.tar.*
+*.jar
+*.exe
+*.msi
+*.zip
+*.tgz
+*.log
+*.log.*
+*.sig
+
+pkg/
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### Node ###
 # Logs
 logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -41,8 +75,8 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -63,7 +97,6 @@ typings/
 .node_repl_history
 
 # Output of 'npm pack'
-*.tgz
 
 # Yarn Integrity file
 .yarn-integrity
@@ -71,12 +104,15 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.production
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
 # Next.js build output
 .next
+out
 
 # Nuxt.js build / generate output
 .nuxt
@@ -84,7 +120,7 @@ dist
 
 # Gatsby files
 .cache/
-# Comment in the public line in if your project uses Gatsby and *not* Next.js
+# Comment in the public line in if your project uses Gatsby and not Next.js
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
@@ -102,3 +138,25 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+### Node Patch ###
+# Serverless Webpack directories
+.webpack/
+
+# Optional stylelint cache
+.stylelintcache
+
+# SvelteKit build / generate output
+.svelte-kit
+
+# End of https://www.toptal.com/developers/gitignore/api/linux,node,archlinuxpackages
