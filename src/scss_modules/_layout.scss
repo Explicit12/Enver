@@ -1,0 +1,26 @@
+// container which set up content area
+.container {
+    margin: 0 auto;
+    padding: 0 1rem;
+    min-width: 375px;
+    max-width: 1200px;
+}
+
+.col-2, .col-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    grid-auto-flow: row;
+}
+
+@media only screen and (min-width: 480px) {
+    .col-2, .col-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .col-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
