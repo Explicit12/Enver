@@ -151,7 +151,7 @@ function browserSync() {
         open: false
     }),
         gulp.watch(path.watch.html, gulp.series(html)).on("change", sync.reload),
-        gulp.watch(path.watch.html_modules, gulp.series(html, htmlPages)).on("change", sync.reload),
+        gulp.watch(path.watch.html_modules, gulp.series(html)).on("change", sync.reload),
         gulp.watch(path.watch.scss, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.scss_modules, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.js, gulp.series(js)).on("change", sync.reload),
