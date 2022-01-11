@@ -1,0 +1,33 @@
+.btn {
+    @include nunito-font(1rem, 1);
+    padding: 0.75rem 1.75rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+
+    &--main {
+        @extend .btn;
+        font-weight: $bold;
+        background-color: $purple;
+        border: $purple solid 2px;
+        transition: all 250ms;
+
+        &:hover {
+            border-color: $purple-dark;
+            background-color: $purple-dark;
+            transition: all 250ms;
+        }
+    }
+
+    &--sec {
+        @extend .btn;
+        border: #fff solid 2px;
+        transition: all 250ms;
+
+        &:hover {
+            color: $grey;
+            border-color: $grey;
+            transition: all 250ms;
+        }
+    }
+}

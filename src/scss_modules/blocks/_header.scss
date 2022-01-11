@@ -1,10 +1,40 @@
-header {
-    ul {
-        display: flex;
-        flex-direction: row;
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 40px 16px 16px;
 
-        li {
-            text-decoration: underline;
+    .nav-list, .btn {
+        display: none;
+    }
+
+    .burger-btn:hover {
+        cursor: pointer;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .header .burger-btn {
+        display: none;
+    }
+
+    .header .btn {
+        display: initial;
+    }
+
+    .header .nav-list {
+        display: flex;
+        gap: 2.5rem;
+
+        .nav-item {
+            @include nunito-font(1.125rem, 1);
+            color: $grey;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            cursor: pointer;
         }
     }
 }

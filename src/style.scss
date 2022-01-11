@@ -1,5 +1,7 @@
 // main style.scss to organize imports
 
+@import "./scss_modules/global";
+
 // variables which available in every .scss files
 @import "./scss_modules/variables";
 
@@ -9,6 +11,9 @@
 
 // containers, colums etc.
 @import "./scss_modules/layout";
+
+// buttons, cards, checkboxes etc.
+@import "./scss_modules/components/buttons";
 
 // blocks;
 @import "./scss_modules/blocks/_header";
