@@ -2,10 +2,11 @@
 .container {
     margin: 0 auto;
     padding: 0 1rem;
-    min-width: 375px;
+    min-width: 320px;
     max-width: 1200px;
 }
 
+// the grid
 .col-2, .col-3 {
     display: grid;
     grid-template-columns: 1fr;
@@ -14,7 +15,14 @@
 }
 
 @media only screen and (min-width: 480px) {
-    .col-2, .col-3 {
+    .col-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media only screen and (min-width: 580px) {
+    .col-2 {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -23,4 +31,19 @@
     .col-3 {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+// margins
+// !!! it's margin-top only !!!
+
+.m-min {
+    margin-top: 20px;
+}
+
+.m-mid {
+    margin-top: 24px;
+}
+
+.m-max {
+    margin-top: 50px;
 }

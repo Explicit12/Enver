@@ -4,6 +4,15 @@
     border-radius: 0.25rem;
     color: #fff;
     cursor: pointer;
+    text-align: center;
+
+    // in case if we have nested icons
+    display: flex;
+    align-items: center;
+
+    .btn-icon {
+        margin-left: 1rem;
+    }
 
     &--main {
         @extend .btn;

@@ -1,0 +1,51 @@
+.hero {
+    height: 100vh;
+    max-height: calc(100vh - 102px);
+    position: relative;
+}
+
+.hero, .hero .photo-content {
+    padding-top: $m-max;
+}
+
+.hero .text-content,
+.hero .photo-content {
+    align-self: center;
+}
+
+.hero .photo-content {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.blurred-shape-1, .blurred-shape-2 {
+    position: absolute;
+    z-index: -1;
+    user-select: none;
+}
+
+.blurred-shape-1 {
+    transform: scale(2.5) rotate(60deg);
+}
+
+.blurred-shape-2 {
+    top: 480px;
+    transform: scale(2.5) rotate(120deg);
+}
+
+@media only screen and (min-width: 580px) {
+    .hero, .hero .photo-content {
+        padding-top: 0;
+    }
+
+    .blurred-shape-1 {
+        transform: scale(1) rotate(60deg);
+        left: -560px;
+    }
+
+    .blurred-shape-2 {
+        transform: scale(1.5) rotate(160deg);
+        right: -760px;
+        top: 0;
+    }
+}
