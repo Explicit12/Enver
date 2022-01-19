@@ -3,7 +3,6 @@
 // main section
 import gulp from "gulp";
 import rename from "gulp-rename";
-import fs from "fs";
 
 // browser sync
 import sync from "browser-sync";
@@ -23,7 +22,6 @@ import media from "gulp-group-css-media-queries";
 // javaScript
 import terser from "gulp-terser";
 import babel from "gulp-babel";
-import npmDist from "gulp-npm-dist";
 
 // images
 import imageMin from "gulp-imagemin";
@@ -98,7 +96,7 @@ function resetCSS() {
         .pipe(gulp.dest(path.build.css));
 }
 
-function javaSrcipt() {
+function javaScript() {
     return gulp.src(path.src.js)
         .pipe(babel({
             presets: ["@babel/env"]
@@ -106,13 +104,6 @@ function javaSrcipt() {
         .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
-}
-
-function libs() {
-    let packageJson = JSON.parse(fs.readFileSync("package.json")).dependencies;
-    if (!packageJson) return Promise.resolve("There's no dependencies");
-    return gulp.src(npmDist(), { base: "./node_modules" })
-        .pipe(gulp.dest(path.build.js + "/libs"));
 }
 
 function img() {
@@ -125,7 +116,7 @@ function img() {
         .pipe(imageMin({
             progressive: true,
             interlaced: true,
-            opimizationLavel: 3
+            optimizationLevel: 3
         }))
         .pipe(gulp.dest(path.build.img));
 }
@@ -155,7 +146,6 @@ function browserSync() {
         gulp.watch(path.watch.scss, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.scss_modules, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.js, gulp.series(js)).on("change", sync.reload),
-        gulp.watch("package.json", gulp.series(libs)).on("change", sync.reload),
         gulp.watch(path.watch.img, gulp.series(img)).on("change", sync.reload),
         gulp.watch(path.watch.svg, gulp.series(svg)).on("change", sync.reload),
         gulp.watch(path.watch.fonts, gulp.series(fonts)).on("change", sync.reload)
@@ -165,6 +155,6 @@ function browserSync() {
 const clear = () => del(path.clean);
 
 const css = gulp.parallel(sass, resetCSS);
-const js = gulp.parallel(javaSrcipt, libs);
+const js = gulp.parallel(javaScript);
 const build = gulp.parallel(img, svg, fonts, html, css, js);
 export default gulp.series(clear, build, browserSync);
