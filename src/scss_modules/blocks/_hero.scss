@@ -1,11 +1,10 @@
-.hero {
-    height: 100vh;
-    max-height: calc(100vh - 102px);
+.hero, .hero .photo-content {
+    margin-top: $m-max;
+    position: relative;
 }
 
-.hero, .hero .photo-content {
-    padding-top: $m-max;
-    position: relative;
+.hero .photo-content {
+    user-select: none;
 }
 
 .hero .text-content,
@@ -56,10 +55,6 @@
 }
 
 @media only screen and (min-width: 580px) {
-    .hero, .hero .photo-content {
-        padding-top: 0;
-    }
-
     .hero .blurred-shape-1 {
         transform: scale(1) rotate(60deg);
         left: -560px;

@@ -9,7 +9,12 @@ body {
     width: 100%
 }
 
+section:not(:first-child) {
+    margin-top: 140px;
+}
+
 .abstract-shape {
     position: absolute;
+    user-select: none;
     will-change: transform;
 }
