@@ -1,11 +1,11 @@
 .hero {
     height: 100vh;
     max-height: calc(100vh - 102px);
-    position: relative;
 }
 
 .hero, .hero .photo-content {
     padding-top: $m-max;
+    position: relative;
 }
 
 .hero .text-content,
@@ -18,17 +18,39 @@
     justify-content: flex-end;
 }
 
-.blurred-shape-1, .blurred-shape-2 {
+.hero .circles-shape {
+    right: 0;
+    width: clamp(2.625rem, 1vw + 2rem, 3.75rem);
+}
+
+.hero .cross-shape {
+    bottom: 0;
+    width: clamp(2.375rem, 4vw + 0.75rem, 3.125rem);
+}
+
+.hero .zig-zag-shape {
+    left: 0;
+    width: clamp(3.813rem, 4vw + 3rem, 5.938rem);
+}
+
+.hero .triangles-shape {
+    bottom: -2rem;
+    left: 0;
+    width: clamp(4.688rem, 3vw + 3rem, 7.5rem);
+}
+
+.hero .blurred-shape-1, .hero .blurred-shape-2 {
     position: absolute;
     z-index: -1;
     user-select: none;
+    will-change: transform;
 }
 
-.blurred-shape-1 {
+.hero .blurred-shape-1 {
     transform: scale(2.5) rotate(60deg);
 }
 
-.blurred-shape-2 {
+.hero .blurred-shape-2 {
     top: 480px;
     transform: scale(2.5) rotate(120deg);
 }
@@ -38,12 +60,12 @@
         padding-top: 0;
     }
 
-    .blurred-shape-1 {
+    .hero .blurred-shape-1 {
         transform: scale(1) rotate(60deg);
         left: -560px;
     }
 
-    .blurred-shape-2 {
+    .hero .blurred-shape-2 {
         transform: scale(1.5) rotate(160deg);
         right: -760px;
         top: 0;

@@ -8,3 +8,8 @@ body {
     overflow-x: hidden;
     width: 100%
 }
+
+.abstract-shape {
+    position: absolute;
+    will-change: transform;
+}

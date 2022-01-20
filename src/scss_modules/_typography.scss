@@ -76,17 +76,17 @@
 }
 
 .h2-s {
-    @include graphik-font(clamp(2.25rem, 4vw + 0.75rem, 3.75rem), 1);
+    @include graphik-font(clamp(2.25rem, 4vw + 1rem, 3.75rem), 1);
     color: #fff;
 }
 
 .h3-s {
-    @include nunito-font(clamp(1.5rem, 2vw + 0.75rem, 1.75rem), 1, $semibold);
+    @include nunito-font(clamp(1.5rem, 1vw + 1rem, 1.75rem), 1, $semibold);
     color: #fff;
 }
 
 // style for main text
 .text-s {
-    @include nunito-font(clamp(1rem, 1vw + 0.75rem, 1.25rem), 1.5);
+    @include nunito-font(clamp(1rem, 5vw - 1rem, 1.25rem), 1.5);
     color: $grey;
 }
