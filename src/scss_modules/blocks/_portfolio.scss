@@ -1,0 +1,26 @@
+.portfolio {
+    height: 624px;
+    position: relative;
+}
+
+.portfolio .circles-shape {
+    top: 0;
+    right: 0;
+}
+
+.portfolio .zig-zag-shape {
+    bottom: -3rem;
+    left: 0;
+}
+
+.portfolio .blurred-shape-1 {
+    display: none;
+}
+
+@media only screen and (min-width: 1024px) {
+    .portfolio .blurred-shape-1 {
+        display: initial;
+        top: -30rem;
+        right: -43rem;
+    }   
+}

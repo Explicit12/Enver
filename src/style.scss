@@ -1,11 +1,9 @@
-// main style.scss to organize imports
-
 @import "./scss_modules/global";
 
 // variables which available in every .scss files
 @import "./scss_modules/variables";
 
-// typography settings, you can applie them by 
+// typography settings, you can apply them by 
 // classes like h1-s, text-s, etc.
 @import "./scss_modules/typography";
 
@@ -20,3 +18,4 @@
 @import "./scss_modules/blocks/header";
 @import "./scss_modules/blocks/hero";
 @import "./scss_modules/blocks/services";
+@import "./scss_modules/blocks/portfolio";
