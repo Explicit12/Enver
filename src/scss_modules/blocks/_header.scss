@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
     padding: 40px 16px 16px;
 
     .nav-list, .btn {
@@ -25,16 +24,5 @@
 
     .header .nav-list {
         display: flex;
-        gap: 2.5rem;
-
-        .nav-item {
-            @include nunito-font(1.125rem, 1);
-            color: $grey;
-        }
-
-        .nav-item:hover {
-            color: #fff;
-            cursor: pointer;
-        }
     }
 }

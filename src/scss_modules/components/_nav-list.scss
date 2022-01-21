@@ -1,0 +1,14 @@
+.nav-list {
+    display: flex;
+    gap: 2.5rem;
+
+    .nav-item {
+        @include nunito-font(1.125rem, 1);
+        color: $grey;
+    }
+
+    .nav-item:hover {
+        color: #fff;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,26 @@
+.footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 6rem;
+    gap: 2rem;
+}
+
+.footer .nav-list {
+    flex-direction: column;
+    text-align: center;
+}
+
+@media only screen and (min-width: 720px) {
+    .footer .nav-list {
+        flex-direction: row;
+        text-align: left;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
