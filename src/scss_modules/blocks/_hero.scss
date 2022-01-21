@@ -19,29 +19,23 @@
 
 .hero .circles-shape {
     right: 0;
-    width: clamp(2.625rem, 1vw + 2rem, 3.75rem);
 }
 
 .hero .cross-shape {
     bottom: 0;
-    width: clamp(2.375rem, 4vw + 0.75rem, 3.125rem);
 }
 
 .hero .zig-zag-shape {
     left: 0;
-    width: clamp(3.813rem, 4vw + 3rem, 5.938rem);
 }
 
 .hero .triangles-shape {
     bottom: -2rem;
     left: 0;
-    width: clamp(4.688rem, 3vw + 3rem, 7.5rem);
 }
 
 .hero .blurred-shape-1, .hero .blurred-shape-2 {
-    position: absolute;
     z-index: -1;
-    user-select: none;
     will-change: transform;
 }
 

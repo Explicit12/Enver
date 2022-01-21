@@ -5,7 +5,7 @@ html {
 
 body {
     background-color: #19191B;
-    overflow-x: hidden;
+    overflow: hidden;
     width: 100%
 }
 
@@ -13,8 +13,25 @@ section:not(:first-child) {
     margin-top: 140px;
 }
 
-.abstract-shape {
+.abstract-shape, .blurred-shape {
     position: absolute;
     user-select: none;
+    pointer-events: none;
     will-change: transform;
+}
+
+.circles-shape {
+    width: clamp(2.625rem, 1vw + 2rem, 3.75rem);
+}
+
+.cross-shape {
+    width: clamp(2.375rem, 4vw + 0.75rem, 3.125rem);
+}
+
+.triangles-shape {
+    width: clamp(4.688rem, 3vw + 3rem, 7.5rem);
+}
+
+.zig-zag-shape {
+    width: clamp(3.813rem, 4vw + 3rem, 5.938rem);
 }

@@ -1,0 +1,15 @@
+.service-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 42px;
+}
+
+.service-item .h3-s {
+    margin-top: $m-min;
+}
+
+.service-item .text-s {
+    margin-top: $m-mid;
+}
