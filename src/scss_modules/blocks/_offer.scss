@@ -1,0 +1,48 @@
+.offer {
+    padding: 5rem 0;
+    background-color: #1C1C1E;
+}
+
+.offer .container {
+    position: relative;
+}
+
+.offer .btn {
+    justify-self: start;
+    align-self: center;
+}
+
+.offer .circles-shape {
+    bottom: -3rem;
+}
+
+.offer .cross-shape {
+    top: -3rem;
+    right: 0;
+}
+
+@media only screen and (min-width: 580px) {    
+    .offer .col-2 {
+        grid-template-columns: 2fr 1fr;
+    }
+    
+    .offer .btn {
+        margin: 0;
+        justify-self: end;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .offer {
+        padding: 8rem 0;
+    }
+
+    .offer .circles-shape {
+        bottom: -6rem;
+    }
+    
+    .offer .cross-shape {
+        top: -6rem;
+        right: 0;
+    }
+}
