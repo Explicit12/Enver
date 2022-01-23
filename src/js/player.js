@@ -11,7 +11,6 @@ function onYouTubeIframeAPIReady() {
     playerVars: {
       color: "white",
       autoplay: 0,
-      // controls: 0,
       disablekb: 1,
       fs: 0,
       mute: 0,
@@ -19,8 +18,7 @@ function onYouTubeIframeAPIReady() {
       showinfo: 0,
       rel: 0,
       iv_load_policy: 3,
-      modestbranding: 1,
-      origin: "https://www.youtube.com"
+      modestbranding: 1
     },
     videoId: "dQw4w9WgXcQ",
     events: {
