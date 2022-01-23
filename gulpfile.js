@@ -46,7 +46,7 @@ const path = {
         html: `${source_folder}/index.html`,
         pages: `${source_folder}/pages/*.html`,
         scss: `${source_folder}/style.scss`,
-        js: `${source_folder}/js/*.js`,
+        js: `${source_folder}/js/main.js`,
         img: `${source_folder}/img/**/**`,
         fonts: `${source_folder}/fonts/**/**`,
         svg: `${source_folder}/svg/**/*.svg`
@@ -58,7 +58,7 @@ const path = {
         pages: `${source_folder}/pages/*.html`,
         scss: `${source_folder}/style.scss`,
         scss_modules: `${source_folder}/scss_modules/**/*.scss`,
-        js: `${source_folder}/*.js`,
+        js: `${source_folder}/js/*.js`,
         img: `${source_folder}/img/**/**`,
         fonts: `${source_folder}/fonts/**/**`,
         svg: `${source_folder}/svg/**/*.svg`
@@ -98,6 +98,9 @@ function resetCSS() {
 
 function javaScript() {
     return gulp.src(path.src.js)
+        .pipe(fileInclude({
+            prefix: "@@"
+        }))
         .pipe(babel({
             presets: ["@babel/env"]
         }))

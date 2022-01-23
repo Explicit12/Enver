@@ -1,4 +1,3 @@
-const example = require("./js__modules/example.js");
-example.exampleModule();
+"use strict"
 
-console.log("hello world");
+@@include("./player.js");
