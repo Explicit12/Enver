@@ -9,9 +9,8 @@
 .thumbnail, .play-btn {
     cursor: pointer;
     will-change: opacity;
-    pointer-events: none;
     transition: opacity 250ms;
-} 
+}
 
 .thumbnail {
     width: 100%;
