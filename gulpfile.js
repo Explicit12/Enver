@@ -27,6 +27,7 @@ import babel from "gulp-babel";
 import imageMin from "gulp-imagemin";
 import webp from "gulp-webp";
 import webpHTML from "./modified_modules/gulp-webp-html-fix/index.js";
+import svgSprite from "gulp-svg-sprite";
 
 const project_folder = "dist";
 const source_folder = "src";
@@ -39,7 +40,8 @@ const path = {
         js: `${project_folder}/js`,
         img: `${project_folder}/img`,
         fonts: `${project_folder}/fonts`,
-        svg: `${project_folder}/svg`
+        svg: `${project_folder}/svg`,
+        svgSprites: `${project_folder}/svg`
     },
 
     src: {
@@ -49,7 +51,8 @@ const path = {
         js: `${source_folder}/js/main.js`,
         img: `${source_folder}/img/**/**`,
         fonts: `${source_folder}/fonts/**/**`,
-        svg: `${source_folder}/svg/**/*.svg`
+        svg: `${source_folder}/svg/*.svg`,
+        svgSprites: `${source_folder}/svg/sprites/**/*.svg`
     },
 
     watch: {
@@ -61,7 +64,7 @@ const path = {
         js: `${source_folder}/js/*.js`,
         img: `${source_folder}/img/**/**`,
         fonts: `${source_folder}/fonts/**/**`,
-        svg: `${source_folder}/svg/**/*.svg`
+        svg: `${source_folder}/svg/**/*.svg`,
     },
 
     clean: `./${project_folder}/`
@@ -132,6 +135,27 @@ function svg() {
         .pipe(gulp.dest(path.build.svg));
 }
 
+function svgSprites() {
+    return gulp.src(path.src.svgSprites)
+        .pipe(imageMin({
+            removeViewBox: true 
+        }))
+        .pipe(svgSprite({
+            shape: {
+                dimension: {
+                    maxWidth: 24,
+                    maxHeight: 24,
+                },
+            },
+            mode: {
+                symbol: {
+                    sprite: "../sprites.svg"
+                }
+            }
+        }))
+        .pipe(gulp.dest(path.build.svg));
+}
+
 function fonts() {
     return gulp.src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts));
@@ -150,7 +174,7 @@ function browserSync() {
         gulp.watch(path.watch.scss_modules, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.js, gulp.series(js)).on("change", sync.reload),
         gulp.watch(path.watch.img, gulp.series(img)).on("change", sync.reload),
-        gulp.watch(path.watch.svg, gulp.series(svg)).on("change", sync.reload),
+        gulp.watch(path.watch.svg, gulp.series(svg, svgSprites)).on("change", sync.reload)
         gulp.watch(path.watch.fonts, gulp.series(fonts)).on("change", sync.reload)
 }
 
@@ -159,5 +183,5 @@ const clear = () => del(path.clean);
 
 const css = gulp.parallel(sass, resetCSS);
 const js = gulp.parallel(javaScript);
-const build = gulp.parallel(img, svg, fonts, html, css, js);
+const build = gulp.parallel(img, svg, svgSprites, fonts, html, css, js);
 export default gulp.series(clear, build, browserSync);

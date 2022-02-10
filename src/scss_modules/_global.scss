@@ -13,6 +13,11 @@ section:not(:first-child) {
     margin-top: 140px;
 }
 
+.svg-sprite {
+    width: 24px;
+    height: 24px;
+} 
+
 .bg-shape-purple {
     width: 2000px; height: 1067px;
     background: url("./img/css-sprites.png") -8px -1091px;
@@ -28,9 +33,12 @@ section:not(:first-child) {
     background: url("./img/css-sprites.png") -8px -2174px;
 }
 
+.blurred-shape {
+    z-index: -1;
+}
+
 .abstract-shape, .blurred-shape {
     position: absolute;
-    z-index: -1;
     user-select: none;
     pointer-events: none;
     will-change: transform;
@@ -38,16 +46,20 @@ section:not(:first-child) {
 
 .circles-shape {
     width: clamp(2.625rem, 1vw + 2rem, 3.75rem);
+    height: clamp(2.625rem, 1vw + 2rem, 3.75rem);
 }
 
 .cross-shape {
     width: clamp(2.375rem, 4vw + 0.75rem, 3.125rem);
+    height: clamp(2.375rem, 4vw + 0.75rem, 3.125rem);
 }
 
 .triangles-shape {
     width: clamp(4.688rem, 3vw + 3rem, 7.5rem);
+    height: clamp(4.688rem, 3vw + 3rem, 7.5rem);
 }
 
 .zig-zag-shape {
     width: clamp(3.813rem, 4vw + 3rem, 5.938rem);
+    height: clamp(3.813rem, 4vw + 3rem, 5.938rem);
 }

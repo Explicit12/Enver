@@ -8,8 +8,12 @@
 
     </div>
     <span>
-        <img src="./svg/abstract-shapes/zig-zag.svg" alt="zig-zag" class="abstract-shape zig-zag-shape" loading="lazy">
-        <img src="./svg/abstract-shapes/circles.svg" alt="circles" class="abstract-shape circles-shape" loading="lazy">
+        <svg class="svg-sprite abstract-shape circles-shape">
+            <use xlink:href="./svg/sprites.svg#abstract-shapes--circles"></use>
+        </svg>
+        <svg class="svg-sprite abstract-shape zig-zag-shape">
+            <use xlink:href="./svg/sprites.svg#abstract-shapes--zig-zag"></use>
+        </svg>
     </span>
     <span class="blurred-shape bg-shape-circle"></span>
 </section>

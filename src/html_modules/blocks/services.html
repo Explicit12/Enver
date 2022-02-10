@@ -4,58 +4,46 @@
     </h2>
     <ul class="services-list col-3 m-max">
         @@include("../components/service-item.html", {
-            "img": {
-                "src": "./svg/icons/code-icon-purple.svg",
-                "alt": "Development"
-            },
+            "name": "icons--code-icon-purple",
             "header": "Development",
             "text": "Create a platform with the best and coolest quality from us"
         })
         @@include("../components/service-item.html", {
-            "img": {
-                "src": "./svg/icons/layers-icon.svg",
-                "alt": "UI/UX Designer"
-            },
+            "name": "icons--layers-icon",
             "header": "UI/UX Designer",
             "text": "We provide UI/UX Design services, and of course with the best quality"
         })
         @@include("../components/service-item.html", {
-            "img": {
-                "src": "./svg/icons/code-icon-yellow.svg",
-                "alt": "Graphic Designer"
-            },
+            "name": "icons--code-icon-yellow",
             "header": "Graphic Designer",
             "text": "We provide Graphic Design services, with the best designers"
         })
         @@include("../components/service-item.html", {
-            "img": {
-                "src": "./svg/icons/align-icon.svg",
-                "alt": "Motion Graphic"
-            },
+            "name": "icons--align-icon",
             "header": "Motion Graphic",
             "text": "Create a platform with the best and coolest quality from us"
         })
         @@include("../components/service-item.html", {
-            "img": {
-                "src": "./svg/icons/camera-icon.svg",
-                "alt": "Photography"
-            },
+            "name": "icons--camera-icon",
             "header": "Photography",
             "text": "We provide Photography services, and of course with the best quality"
         })
         @@include("../components/service-item.html", {
-            "img": {
-                "src": "./svg/icons/video-icon.svg",
-                "alt": "Videography"
-            },
+            "name": "icons--video-icon",
             "header": "Videography",
             "text": "Create a platform with the best and coolest quality from us"
         })
     </ul>
     <span>
-        <img src="./svg/abstract-shapes/triangles.svg" alt="triangles" class="abstract-shape triangles-shape" loading="lazy">
-        <img src="./svg/abstract-shapes/cross.svg" alt="cross" class="abstract-shape cross-shape cross-shape-0" loading="lazy">
-        <img src="./svg/abstract-shapes/cross.svg" alt="cross" class="abstract-shape cross-shape cross-shape-1" loading="lazy">
+        <svg class="svg-sprite abstract-shape triangles-shape">
+            <use xlink:href="./svg/sprites.svg#abstract-shapes--triangles"></use>
+        </svg>
+        <svg class="svg-sprite abstract-shape cross-shape cross-shape-0">
+            <use xlink:href="./svg/sprites.svg#abstract-shapes--cross"></use>
+        </svg>
+        <svg class="svg-sprite abstract-shape cross-shape cross-shape-1">
+            <use xlink:href="./svg/sprites.svg#abstract-shapes--cross"></use>
+        </svg>
     </span>
     <span class="blurred-shape bg-shape-circle"></span>
     <span class="blurred-shape bg-shape-orange"></span>
