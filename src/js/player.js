@@ -15,7 +15,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
   const $playBtn = document.createElement("img");
   $playBtn.classList.add("play-btn");
-  $playBtn.src = "../svg/icons/play-icon.svg";
+  $playBtn.src = "../svg/play-icon.svg";
   $playBtn.alt = "Play";
   $playBtn.loading = "lazy";
 
