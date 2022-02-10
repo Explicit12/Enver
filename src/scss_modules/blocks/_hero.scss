@@ -34,29 +34,24 @@
     left: 0;
 }
 
-.hero .blurred-shape-1, .hero .blurred-shape-2 {
-    z-index: -1;
-    will-change: transform;
-}
-
-.hero .blurred-shape-1 {
+.hero .bg-shape-purple {
     transform: scale(2.5) rotate(60deg);
 }
 
-.hero .blurred-shape-2 {
+.hero .bg-shape-orange {
     top: 480px;
     transform: scale(2.5) rotate(120deg);
 }
 
 @media only screen and (min-width: 580px) {
-    .hero .blurred-shape-1 {
-        transform: scale(1) rotate(60deg);
-        left: -560px;
-    }
-
-    .hero .blurred-shape-2 {
+    .hero .bg-shape-orange {
         transform: scale(1.5) rotate(160deg);
         right: -760px;
         top: 0;
+    }    
+
+    .hero .bg-shape-purple {
+        transform: scale(1) rotate(60deg);
+        left: -560px;
     }
 }

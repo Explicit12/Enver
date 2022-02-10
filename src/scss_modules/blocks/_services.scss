@@ -21,9 +21,8 @@
     bottom: -3rem;
 }
 
-.services .blurred-shape-1, 
-.services .blurred-shape-2, 
-.services .blurred-shape-3 {
+.services .bg-shape-circle, 
+.services .bg-shape-orange {
     display: none;
 }
 
@@ -49,18 +48,17 @@
         bottom: -3rem;
     }
 
-    .services .blurred-shape-1, 
-    .services .blurred-shape-2, 
-    .services .blurred-shape-3 {
+    .services .bg-shape-circle, 
+    .services .bg-shape-orange  {
         display: initial;
     }
 
-    .services .blurred-shape-1 {
+    .services .bg-shape-circle {
         top: -26rem;
         left: -30rem;
     }
 
-    .services .blurred-shape-2 {
+    .services .bg-shape-orange {
         bottom: -14rem;
         transform: rotate(-45deg) scale(2);
     }

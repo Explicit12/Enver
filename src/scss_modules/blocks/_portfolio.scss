@@ -13,12 +13,12 @@
     left: 0;
 }
 
-.portfolio .blurred-shape-1 {
+.portfolio .bg-shape-circle {
     display: none;
 }
 
 @media only screen and (min-width: 1024px) {
-    .portfolio .blurred-shape-1 {
+    .portfolio .bg-shape-circle {
         display: initial;
         top: -30rem;
         right: -43rem;

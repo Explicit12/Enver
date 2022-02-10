@@ -13,8 +13,24 @@ section:not(:first-child) {
     margin-top: 140px;
 }
 
+.bg-shape-purple {
+    width: 2000px; height: 1067px;
+    background: url("./img/css-sprites.png") -8px -1091px;
+}
+
+.bg-shape-orange {
+    width: 2001px; height: 1067px;
+    background: url("./img/css-sprites.png") -8px -8px;
+}
+
+.bg-shape-circle {
+    width: 1102px; height: 1092px;
+    background: url("./img/css-sprites.png") -8px -2174px;
+}
+
 .abstract-shape, .blurred-shape {
     position: absolute;
+    z-index: -1;
     user-select: none;
     pointer-events: none;
     will-change: transform;
