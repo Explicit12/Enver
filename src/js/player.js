@@ -5,7 +5,7 @@ const firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 (function addCustomPlayerUI() {
-  if (navigator.userAgentData.mobile) return;
+  if (window.screen.availWidth <= 800) return;
 
   const $thumbnail = document.createElement("img");
   $thumbnail.classList.add("thumbnail");
@@ -53,7 +53,7 @@ function onYouTubeIframeAPIReady() {
   ];
 
   function onPlayerReady(event) {
-    if (navigator.userAgentData.mobile) return;
+    if (window.screen.availWidth <= 800) return;
 
     const playerStates = [-1, 2, 3, 5];
 
@@ -66,7 +66,7 @@ function onYouTubeIframeAPIReady() {
   }
 
   function onPlayerStateChange(event) {
-    if (navigator.userAgentData.mobile) return;
+    if (window.screen.availWidth <= 800) return;
 
     if (event.data === 1) {
       $playerContainer.forEach((element) => {
