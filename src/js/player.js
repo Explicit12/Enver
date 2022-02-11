@@ -60,7 +60,7 @@ function onYouTubeIframeAPIReady() {
     $playerContainer.forEach((element) => {
       element.addEventListener("click", function togglePlay(event) {
         if (playerStates.includes(player.getPlayerState())) player.playVideo();
-        if (!playerStates.includes(player.getPlayerState())) player.pauseVideo();
+        else player.pauseVideo();
       });
     });
   }
