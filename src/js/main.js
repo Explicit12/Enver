@@ -1,7 +1,7 @@
 "use strict"
 
+@@include("./template.js");
+
 @@include("./player.js");
 
-// window.addEventListener("load", function loadScripts() {
-//     addYoutubeIframePlayer();
-// });
+@@include("./slider.js");

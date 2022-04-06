@@ -1,0 +1,66 @@
+._slider {
+    height: 100%;
+    border: 1px solid red;
+    // overflow-x: hidden;
+    margin: 50px auto;
+}
+
+._slider ._slider-line {
+    width: max-content;
+    display: flex;
+    will-change: transform;
+}
+
+._slider ._slider-pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 108px auto;
+    max-width: fit-content;
+}
+
+._slider ._slider-pagination-btn {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: $grey;
+    cursor: pointer;
+    transition: 250ms;
+}
+
+._slider ._slider-pagination-btn[data-active="true"] {
+    background-color: $purple;
+    width: 1rem;
+    border-radius: 0.5rem;
+    transition: 250ms;
+}
+
+._slider ._slider-arrows {
+    margin: 108px auto;
+    display: flex;
+    width: fit-content;
+    gap: 1rem;
+}
+
+._slider ._slider-arrow-btn {
+    padding: 0.5rem;
+    background-color: $purple;
+    border-radius: 50%;
+    line-height: 0;
+    cursor: pointer;
+    will-change: background-color;
+    transition: background-color 250ms;
+}
+
+._slider ._slider-arrow-btn:disabled {
+    background-color: $grey;
+}
+
+._slider ._slider-arrow-btn:hover {
+    background-color: $purple-dark;
+    transition: background-color 250ms;
+}
+
+._slider .left-arrow {
+    transform: rotate(180deg);
+}

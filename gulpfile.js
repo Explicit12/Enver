@@ -60,7 +60,7 @@ const path = {
         html_modules: `${source_folder}/html_modules/**/*.html`,
         pages: `${source_folder}/pages/*.html`,
         scss: `${source_folder}/style.scss`,
-        scss_modules: `${source_folder}/scss_modules/**/*.scss`,
+        scss_modules: `${source_folder}/scss_modules/**/**`,
         js: `${source_folder}/js/*.js`,
         img: `${source_folder}/img/**/**`,
         fonts: `${source_folder}/fonts/**/**`,
@@ -104,10 +104,10 @@ function javaScript() {
         .pipe(fileInclude({
             prefix: "@@"
         }))
-        .pipe(babel({
-            presets: ["@babel/env"]
-        }))
-        .pipe(terser())
+        // .pipe(babel({
+        //     presets: ["@babel/env"]
+        // }))
+        // .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
 }

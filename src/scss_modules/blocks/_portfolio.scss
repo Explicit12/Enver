@@ -1,5 +1,4 @@
 .portfolio {
-    height: 624px;
     position: relative;
 }
 
@@ -17,10 +16,67 @@
     display: none;
 }
 
+.portfolio .portfolio-work {
+   padding: 1.5rem;
+   border-radius: 14px;
+   background-color: $black;
+   display: inline-block;
+   max-width: 327px;
+   max-height: 246px;
+
+   .work-screenshot {
+       height: 100%;
+       width: 100%;
+       border-radius: 12px;
+   }
+}
+
+@keyframes appearance-animate {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%); 
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(initial); 
+    }
+}
+
 @media only screen and (min-width: 1024px) {
+    .portfolio .portfolio-work {
+        max-width: 372px;
+        max-height: 301px;
+    }
+
     .portfolio .bg-shape-circle {
         display: initial;
         top: -30rem;
         right: -43rem;
     }   
+}
+
+@media only screen and (min-width: 1180px) {
+    .portfolio ._slider-line {
+        height: 500px;
+    }
+    
+    .portfolio .portfolio-work {
+        &:nth-child(3n+2),
+        &:nth-child(3n+3) {
+             will-change: transform, opacity;
+        }
+     
+        &:nth-child(3n+2) {
+            transform: translateY(100px);
+        }
+     
+        &:nth-child(3n+3){
+            transform: translateY(200px);   
+        }
+    }
 }
