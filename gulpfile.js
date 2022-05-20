@@ -24,7 +24,7 @@ import terser from "gulp-terser";
 import babel from "gulp-babel";
 
 // images
-import imageMin from "gulp-imagemin";
+// import imageMin from "gulp-imagemin";
 import webp from "gulp-webp";
 import webpHTML from "./modified_modules/gulp-webp-html-fix/index.js";
 import svgSprite from "gulp-svg-sprite";
@@ -119,27 +119,27 @@ function img() {
         }))
         .pipe(gulp.dest(path.build.img))
         .pipe(gulp.src(path.src.img))
-        .pipe(imageMin({
-            progressive: true,
-            interlaced: true,
-            optimizationLevel: 3
-        }))
+        // .pipe(imageMin({
+        //     progressive: true,
+        //     interlaced: true,
+        //     optimizationLevel: 3
+        // }))
         .pipe(gulp.dest(path.build.img));
 }
 
 function svg() {
     return gulp.src(path.src.svg)
-        .pipe(imageMin({
-            removeViewBox: true
-        }))
+        // .pipe(imageMin({
+        //     removeViewBox: true
+        // }))
         .pipe(gulp.dest(path.build.svg));
 }
 
 function svgSprites() {
     return gulp.src(path.src.svgSprites)
-        .pipe(imageMin({
-            removeViewBox: true 
-        }))
+        // .pipe(imageMin({
+        //     removeViewBox: true 
+        // }))
         .pipe(svgSprite({
             shape: {
                 dimension: {
