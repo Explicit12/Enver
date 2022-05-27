@@ -1,6 +1,10 @@
+// The slider is able to be responsive, in that case slider is mobile first
+// and we have to put the responsive property into this settings object.
+// The setting property is also an object, where is keys are resolution in px
+// and their vlues is objects with new settings.
+
 class Slide {
     #slideDOM;
-    #width;
 
     constructor(slideDOM) {
         this.#slideDOM = slideDOM;
@@ -12,7 +16,7 @@ class Slide {
         this.#slideDOM.classList.add("_slider-slide");
     }
 
-    get width() {
+    get getWidth() {
         return this.#slideDOM.offsetWidth;
     }
 
@@ -85,6 +89,17 @@ class Slider {
             .#makeResponsive();
     }
 
+    #addSliderLine() {
+        this.#sliderDOM.insertAdjacentHTML("afterBegin", Template.getSliderLineTemplate());
+        this.#sliderLineDOM = this.#sliderDOM.children[0];
+        this.#slides.forEach(slide => this.#sliderLineDOM.append(slide.getSlideDOM));
+
+        this.#sliderLineDOM.style.transform = `translate(${0}px)`;
+        this.#positionX = Number(this.#sliderLineDOM.style.transform.match(/\d/g));
+
+        return this;
+    }
+
     #applySettings() {
         this.#setSliderWidth()
             .#setMargins()
@@ -92,17 +107,6 @@ class Slider {
             .#addArrows()
             .#addPagination();
         
-        return this;
-    }
-
-    #addSliderLine() {
-        this.#sliderDOM.insertAdjacentHTML("afterBegin", template.sliderLineTemplate);
-        this.#sliderLineDOM = this.#sliderDOM.children[0];
-        this.#slides.forEach(slide => this.#sliderLineDOM.append(slide.getSlideDOM));
-
-        this.#sliderLineDOM.style.transform = `translate(${0}px)`;
-        this.#positionX = Number(this.#sliderLineDOM.style.transform.match(/\d/g));
-
         return this;
     }
 
@@ -125,32 +129,55 @@ class Slider {
             this.#transition = currentBreakpointSettings.transition;
             this.#pagination = currentBreakpointSettings.pagination;
             this.#navigationArrows = currentBreakpointSettings.navigationArrows;
-            
-            // if (this.#firstSlideIndex - this.#slidesToScroll > 0) {
-            //     this.setCurrentSlide(this.#firstSlideIndex - this.#slidesToScroll + 1);
-            // } else {
-            //     this.setCurrentSlide();
-            // }
 
             this.#applySettings();
+
+            let possibleIndexes = [0];
+            for (let i = Math.floor(this.#slides.length / this.#slidesToScroll); i > 0; i--) {
+                if (possibleIndexes[possibleIndexes.length - 1] + this.#slidesToScroll >= this.#slides.length) {
+                    continue;
+                }
+
+                possibleIndexes.push(possibleIndexes[possibleIndexes.length - 1] + this.#slidesToScroll);
+            }
+
+            if (possibleIndexes.includes(this.#firstSlideIndex)) {
+                this.setCurrentSlide();
+                return;
+            }
+
+            while(!possibleIndexes.includes(this.#firstSlideIndex)) {
+                this.#firstSlideIndex -= 1;
+            }
+            this.setCurrentSlide();
+            return;
         }
 
         setBreakpointSettings.call(this);
         window.addEventListener("resize", () => setBreakpointSettings.call(this));
+        
         return this;
     }
 
     #setSliderWidth() {
         let newSliderWidth = 0;
-        this.#slides.forEach((slide, index) => {
-            if (index > this.#firstSlideIndex &&
-                index === this.#firstSlideIndex + this.#slidesToShow) {
-                newSliderWidth += slide.width;
+        this.#slides.some((slide, index) => {
+            if (this.#slidesToShow === 1) {
+                newSliderWidth += slide.getWidth;
+                return true;
             }
 
-            if (index > this.#firstSlideIndex &&
-                index < this.#firstSlideIndex + this.#slidesToShow) {
-                newSliderWidth += slide.width + this.#margins;
+            if (
+                index > this.#firstSlideIndex &&
+                index === this.#firstSlideIndex + this.#slidesToShow - 1
+            ) {
+                newSliderWidth += slide.getWidth;
+                newSliderWidth += slide.getWidth + this.#margins;
+            } else if (
+                index > this.#firstSlideIndex &&
+                index < this.#firstSlideIndex + this.#slidesToShow
+            ) {
+                newSliderWidth += slide.getWidth + this.#margins;
             }
         });
 
@@ -201,15 +228,15 @@ class Slider {
         }
         if (!this.#navigationArrows) return this;
 
-        this.#sliderDOM.insertAdjacentHTML("beforeEnd", template.arrowsTemplate);
+        this.#sliderDOM.insertAdjacentHTML("beforeEnd", Template.getArrowsTemplate());
         this.#arrowsDOM = this.#sliderDOM.querySelector("._slider-arrows");
 
         Array.from(this.#arrowsDOM.children).forEach(arrowDOM => {
-            if ([...arrowDOM.children].some(elemDOM => elemDOM.classList.contains("left-arrow"))) {
+            if (Array.from(arrowDOM.children).some(elemDOM => elemDOM.classList.contains("left-arrow"))) {
                 arrowDOM.addEventListener("click", () => { this.prevSlide(); });
             }
 
-            if ([...arrowDOM.children].some(elemDOM => elemDOM.classList.contains("right-arrow"))) {
+            if (Array.from(arrowDOM.children).some(elemDOM => elemDOM.classList.contains("right-arrow"))) {
                 arrowDOM.addEventListener("click", () => { this.nextSlide(); });
             }
         });
@@ -222,7 +249,7 @@ class Slider {
         if (!this.#paginationDOM) return this;
 
         Array.from(this.#paginationDOM.children).forEach((paginationBtnDOM, index) => {
-            if (index === this.#firstSlideIndex / this.#slidesToScroll) {
+            if (index === Math.round(this.#firstSlideIndex / this.#slidesToScroll)) {
                 paginationBtnDOM.setAttribute("data-active", true);
             } else {
                 paginationBtnDOM.setAttribute("data-active", false);
@@ -243,7 +270,7 @@ class Slider {
         if (this.#paginationDOM) this.#paginationDOM.remove();
         this.#sliderDOM.insertAdjacentHTML(
             "beforeEnd", 
-            template.paginationTemplate(Math.ceil(this.#slides.length / this.#slidesToScroll))
+            Template.getPaginationTemplate(Math.ceil(this.#slides.length / this.#slidesToScroll))
         );
         
         this.#paginationDOM = this.#sliderDOM.querySelector("._slider-pagination");
@@ -251,8 +278,7 @@ class Slider {
 
         Array.from(this.#paginationDOM.children).forEach((paginationBtnDOM, index) => {
             paginationBtnDOM.addEventListener("click", () => {
-                this.setCurrentSlide(Math.ceil(index * this.#slidesToScroll))
-                    .#setActivePaginationBtn();
+                this.setCurrentSlide(Math.ceil(index * this.#slidesToScroll));
             });
         });
 
@@ -261,17 +287,21 @@ class Slider {
 
     // It's the first slide index if SlidesToShow bigger then 1
     setCurrentSlide(number = this.#firstSlideIndex) {
-        this.#firstSlideIndex = number;
-        this.#positionX = (this.#slides[0].width + this.#margins) * this.#firstSlideIndex * -1;
-        this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
+       try {
+           this.#firstSlideIndex = number;
+           this.#positionX = (this.#slides[0].getWidth + this.#margins) * this.#firstSlideIndex * -1;
+           this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
 
-        this.#setActiveArrow().#setActivePaginationBtn();
-        return this;
+           this.#setActiveArrow().#setActivePaginationBtn();
+           return this;
+       } catch (error) {
+           console.error(error);
+       }
     }
 
     nextSlide() {
         this.#firstSlideIndex += this.#slidesToScroll;
-        this.#positionX -= (this.#slides[0].width + this.#margins) * this.#slidesToScroll;
+        this.#positionX -= (this.#slides[0].getWidth + this.#margins) * this.#slidesToScroll;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
         
         this.#setActiveArrow().#setActivePaginationBtn();
@@ -280,24 +310,33 @@ class Slider {
 
     prevSlide() {
         this.#firstSlideIndex -= this.#slidesToScroll;
-        this.#positionX += (this.#slides[0].width + this.#margins) * this.#slidesToScroll;
+        this.#positionX += (this.#slides[0].getWidth + this.#margins) * this.#slidesToScroll;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
 
         this.#setActiveArrow().#setActivePaginationBtn();
         return this;
     }
 
+    // dev
     get getSliderDOM() {
         return this.#sliderDOM;
     }
 
-    get slides() {
+    // dev
+    get getSlides() {
         return this.#slides;
+    }
+
+    // dev
+    get getCurrentIndex() {
+        return this.#firstSlideIndex;
     }
 }
 
+let slider = null;
+
 window.addEventListener("load", () => {
-    const slider = new Slider(
+    slider = new Slider(
         "#slider",
         {
             slidesToShow: 1,
