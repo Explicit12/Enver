@@ -1,5 +1,5 @@
-// The slider is able to be responsive, in that case slider is mobile first
-// and we have to put the responsive property into this settings object.
+// The slider is able to be adaptive, in that case slider is mobile first
+// and we have to put the adaptive property into this settings object.
 // The setting property is also an object, where is keys are resolution in px
 // and their vlues is objects with new settings.
 
@@ -40,7 +40,8 @@ class Slider {
     #transition;
     #pagination;
     #navigationArrows;
-    #responsive;
+    #adaptive;
+    #touchable;
 
     #arrowsDOM;
     #paginationDOM;
@@ -55,7 +56,8 @@ class Slider {
           transition = 0,
           pagination = false,
           navigationArrows = true,
-          responsive = false
+          adaptive = false,
+          touchable = true,
         } = {}
         ) {
         this.#sliderDOM = document.querySelector(selector);
@@ -73,7 +75,8 @@ class Slider {
         this.#transition = transition;
         this.#pagination = pagination;
         this.#navigationArrows = navigationArrows;
-        this.#responsive = responsive;
+        this.#adaptive = adaptive;
+        this.#touchable = touchable;
 
         this.#initialSettings = {
             slidesToShow: slidesToShow,
@@ -82,11 +85,12 @@ class Slider {
             transition: transition,
             pagination: pagination,
             navigationArrows: navigationArrows,
+            touchable: touchable,
         }
 
         this.#addSliderLine()
             .#applySettings()
-            .#makeResponsive();
+            .#makeAdaptive();
     }
 
     #addSliderLine() {
@@ -105,23 +109,24 @@ class Slider {
             .#setMargins()
             .#setTransition()
             .#addArrows()
-            .#addPagination();
+            .#addPagination()
+            .#makeTouchable();
         
         return this;
     }
 
-    #makeResponsive() {
-        if (!this.#responsive) return this; 
-        this.#responsive["0"] = Object.assign({}, this.#initialSettings);
+    #makeAdaptive() {
+        if (!this.#adaptive) return this; 
+        this.#adaptive["0"] = Object.assign({}, this.#initialSettings);
 
         function setBreakpointSettings() {
             let currentWidth = window.innerWidth;
             let currentBreakpointSettings = {};
 
-            Object.keys(this.#responsive)
+            Object.keys(this.#adaptive)
                 .filter(key => key < currentWidth)
                 .map(key => +key)
-                .forEach(key => Object.assign(currentBreakpointSettings, this.#responsive[key]));
+                .forEach(key => Object.assign(currentBreakpointSettings, this.#adaptive[key]));
 
             this.#slidesToShow = currentBreakpointSettings.slidesToShow;
             this.#slidesToScroll = currentBreakpointSettings.slidesToScroll;
@@ -129,6 +134,7 @@ class Slider {
             this.#transition = currentBreakpointSettings.transition;
             this.#pagination = currentBreakpointSettings.pagination;
             this.#navigationArrows = currentBreakpointSettings.navigationArrows;
+            this.#touchable = currentBreakpointSettings.touchable;
 
             this.#applySettings();
 
@@ -141,6 +147,8 @@ class Slider {
                 possibleIndexes.push(possibleIndexes[possibleIndexes.length - 1] + this.#slidesToScroll);
             }
 
+            console.log(possibleIndexes)
+
             if (possibleIndexes.includes(this.#firstSlideIndex)) {
                 this.setCurrentSlide();
                 return;
@@ -149,7 +157,7 @@ class Slider {
             while(!possibleIndexes.includes(this.#firstSlideIndex)) {
                 this.#firstSlideIndex -= 1;
             }
-            this.setCurrentSlide();
+            this.setCurrentSlide()
             return;
         }
 
@@ -159,11 +167,24 @@ class Slider {
         return this;
     }
 
+    #makeTouchable() {
+        
+        return this;
+    }
+
     #setSliderWidth() {
         let newSliderWidth = 0;
         this.#slides.some((slide, index) => {
             if (this.#slidesToShow === 1) {
                 newSliderWidth += slide.getWidth;
+                return true;
+            }
+
+            if (
+                this.#firstSlideIndex === this.#slides.length - 1 ||
+                this.#firstSlideIndex + (this.#slidesToShow - 1) > this.#slides.length - 1 
+            ) {
+                newSliderWidth += slide.getWidth * this.#slidesToShow + this.#margins * (this.#slidesToShow - 1);
                 return true;
             }
 
@@ -331,6 +352,11 @@ class Slider {
     get getCurrentIndex() {
         return this.#firstSlideIndex;
     }
+
+    // dev
+    get isTouchable() {
+        return this.#touchable;
+    }
 }
 
 let slider = null;
@@ -345,7 +371,7 @@ window.addEventListener("load", () => {
             pagination: true,
             transition: 250,
 
-            responsive: {
+            adaptive: {
                 720: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
@@ -358,6 +384,7 @@ window.addEventListener("load", () => {
                     navigationArrows: true,
                     pagination: false,
                     transition: 0,
+                    touchable: false,
                 }
             }
         }
