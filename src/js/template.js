@@ -19,9 +19,17 @@ class Template {
     }
 
     static getPaginationTemplate(number) {
-        const dot = `<button class="_slider-pagination-btn" data-active="false"></button>`
+        const dot = `<button class="_slider-pagination-btn" data-active="false"></button>`;
         return `<div class="_slider-pagination">
                     ${dot.repeat(number)}
-                </div>`
+                </div>`;
+    }
+
+    static getThumbnailTemplate(imgPath) {
+        return `<img class="thumbnail" src="${imgPath}" alt="thumbnail" loading="lazy"></img>`;
+    }
+
+    static getPlayerBtnTemplate(iconPath) {
+        return `<img class="play-btn" src="${iconPath}" alt="Play" loading="lazy">`
     }
 }

@@ -7,21 +7,17 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 (function addCustomPlayerUI() {
   if (window.screen.availWidth <= 800) return;
 
-  const $thumbnail = document.createElement("img");
-  $thumbnail.classList.add("thumbnail");
-  $thumbnail.src = "../img/photos/video-preview.png";
-  $thumbnail.alt = "thumbnail";
-  $thumbnail.loading = "lazy";
+  const playerContainer = document.querySelector(".player-container");
 
-  const $playBtn = document.createElement("img");
-  $playBtn.classList.add("play-btn");
-  $playBtn.src = "../svg/play-icon.svg";
-  $playBtn.alt = "Play";
-  $playBtn.loading = "lazy";
+  playerContainer.insertAdjacentHTML(
+    "afterbegin", 
+    Template.getThumbnailTemplate("../img/photos/video-preview.png")
+  );
 
-  const $playerContainer = document.querySelector(".player-container");
-  $playerContainer.prepend($thumbnail);
-  $playerContainer.prepend($playBtn);
+  playerContainer.insertAdjacentHTML(
+    "afterbegin", 
+    Template.getPlayerBtnTemplate("../svg/play-icon.svg")
+  );
 })();
 
 function onYouTubeIframeAPIReady() {
@@ -47,7 +43,7 @@ function onYouTubeIframeAPIReady() {
     },
   });
 
-  const $playerContainer = [
+  const playerContainer = [
     document.querySelector(".play-btn"),
     document.querySelector(".thumbnail"),
   ];
@@ -57,7 +53,7 @@ function onYouTubeIframeAPIReady() {
 
     const playerStates = [-1, 2, 3, 5];
 
-    $playerContainer.forEach((element) => {
+    playerContainer.forEach((element) => {
       element.addEventListener("click", function togglePlay(event) {
         if (playerStates.includes(player.getPlayerState())) player.playVideo();
         else player.pauseVideo();
@@ -69,22 +65,22 @@ function onYouTubeIframeAPIReady() {
     if (window.screen.availWidth <= 800) return;
 
     if (event.data === 1) {
-      $playerContainer.forEach((element) => {
+      playerContainer.forEach((element) => {
         element.style.opacity = 0;
       });
 
-      $playerContainer[1].style.pointerEvents = "none";
+      playerContainer[1].style.pointerEvents = "none";
     }
 
     if (event.data === 0) {
-      $playerContainer.forEach((element) => {
+      playerContainer.forEach((element) => {
         element.style.opacity = 1;
       });
       player.seekTo(0).pauseVideo();
     }
 
     if (![0, 1].includes(event.data)) {
-      $playerContainer[0].style.opacity = 1;
+      playerContainer[0].style.opacity = 1;
     }
   }
 }
