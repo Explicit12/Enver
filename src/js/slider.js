@@ -41,10 +41,12 @@ class Slider {
     #pagination;
     #navigationArrows;
     #adaptive;
-    #touchable;
 
     #arrowsDOM;
     #paginationDOM;
+
+    #touchStartX;
+    #touchEndX;
 
     constructor(
         selector, 
@@ -57,7 +59,6 @@ class Slider {
           pagination = false,
           navigationArrows = true,
           adaptive = false,
-          touchable = true,
         } = {}
         ) {
         this.#sliderDOM = document.querySelector(selector);
@@ -76,7 +77,6 @@ class Slider {
         this.#pagination = pagination;
         this.#navigationArrows = navigationArrows;
         this.#adaptive = adaptive;
-        this.#touchable = touchable;
 
         this.#initialSettings = {
             slidesToShow: slidesToShow,
@@ -85,12 +85,13 @@ class Slider {
             transition: transition,
             pagination: pagination,
             navigationArrows: navigationArrows,
-            touchable: touchable,
         }
 
+        // Slider init.
         this.#addSliderLine()
             .#applySettings()
-            .#makeAdaptive();
+            .#makeAdaptive()
+            .#makeTouchResponsive();
     }
 
     #addSliderLine() {
@@ -109,8 +110,7 @@ class Slider {
             .#setMargins()
             .#setTransition()
             .#addArrows()
-            .#addPagination()
-            .#makeTouchable();
+            .#addPagination();
         
         return this;
     }
@@ -119,6 +119,7 @@ class Slider {
         if (!this.#adaptive) return this; 
         this.#adaptive["0"] = Object.assign({}, this.#initialSettings);
 
+        // Finding breakpoint in adaptive object and apply this settings.
         function setBreakpointSettings() {
             let currentWidth = window.innerWidth;
             let currentBreakpointSettings = {};
@@ -134,10 +135,10 @@ class Slider {
             this.#transition = currentBreakpointSettings.transition;
             this.#pagination = currentBreakpointSettings.pagination;
             this.#navigationArrows = currentBreakpointSettings.navigationArrows;
-            this.#touchable = currentBreakpointSettings.touchable;
 
             this.#applySettings();
 
+            // Calculating every posible indexes that could be displayed.
             let possibleIndexes = [0];
             for (let i = Math.floor(this.#slides.length / this.#slidesToScroll); i > 0; i--) {
                 if (possibleIndexes[possibleIndexes.length - 1] + this.#slidesToScroll >= this.#slides.length) {
@@ -147,27 +148,23 @@ class Slider {
                 possibleIndexes.push(possibleIndexes[possibleIndexes.length - 1] + this.#slidesToScroll);
             }
 
-            console.log(possibleIndexes)
-
+            // If slider trying to set posible index, we will allow to him to do it.
             if (possibleIndexes.includes(this.#firstSlideIndex)) {
                 this.setCurrentSlide();
                 return;
             }
 
+            // If not, we will caclulate the nearest one. 
             while(!possibleIndexes.includes(this.#firstSlideIndex)) {
                 this.#firstSlideIndex -= 1;
             }
-            this.setCurrentSlide()
+            this.setCurrentSlide();
+
             return;
         }
 
         setBreakpointSettings.call(this);
-        window.addEventListener("resize", () => setBreakpointSettings.call(this));
-        
-        return this;
-    }
-
-    #makeTouchable() {
+        window.addEventListener("resize", setBreakpointSettings.bind(this));
         
         return this;
     }
@@ -254,11 +251,11 @@ class Slider {
 
         Array.from(this.#arrowsDOM.children).forEach(arrowDOM => {
             if (Array.from(arrowDOM.children).some(elemDOM => elemDOM.classList.contains("left-arrow"))) {
-                arrowDOM.addEventListener("click", () => { this.prevSlide(); });
+                arrowDOM.addEventListener("click", this.prevSlide.bind(this));
             }
 
             if (Array.from(arrowDOM.children).some(elemDOM => elemDOM.classList.contains("right-arrow"))) {
-                arrowDOM.addEventListener("click", () => { this.nextSlide(); });
+                arrowDOM.addEventListener("click", this.nextSlide.bind(this));
             }
         });
 
@@ -298,29 +295,70 @@ class Slider {
         this.#setActivePaginationBtn();
 
         Array.from(this.#paginationDOM.children).forEach((paginationBtnDOM, index) => {
-            paginationBtnDOM.addEventListener("click", () => {
-                this.setCurrentSlide(Math.ceil(index * this.#slidesToScroll));
-            });
+            paginationBtnDOM.addEventListener("click", this.#setPaginationBtnEvent.bind(this, index));
         });
 
         return this;
     }
 
-    // It's the first slide index if SlidesToShow bigger then 1
-    setCurrentSlide(number = this.#firstSlideIndex) {
-       try {
-           this.#firstSlideIndex = number;
-           this.#positionX = (this.#slides[0].getWidth + this.#margins) * this.#firstSlideIndex * -1;
-           this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
+    #setPaginationBtnEvent(index) {
+        this.setCurrentSlide(Math.ceil(index * this.#slidesToScroll));
+        return;
+    }
 
-           this.#setActiveArrow().#setActivePaginationBtn();
-           return this;
-       } catch (error) {
-           console.error(error);
-       }
+    #makeTouchResponsive() {
+        this.#sliderLineDOM.addEventListener("touchstart", this.#touchStartEvent.bind(this));
+        this.#sliderLineDOM.addEventListener("touchend", this.#touchEndEvent.bind(this));
+
+        return this;
+    }
+
+    #touchStartEvent(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        this.#touchStartX = event.touches[0].clientX;
+
+        return;
+    }
+
+    #touchEndEvent(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.#touchEndX = event.changedTouches[0].clientX;
+        const touchDinstance = this.#touchEndX - this.#touchStartX;
+
+        if (
+            touchDinstance > 0 &&
+            Math.abs(touchDinstance) > (touchDinstance * 65) / 100
+        ) {
+            this.nextSlide();
+        }
+
+        if (
+            touchDinstance < 0 &&
+            Math.abs(touchDinstance) > (touchDinstance * 65) / 100
+        ) {
+            this.prevSlide();
+        }
+
+        return;
+    }
+
+    // It's the first slide index if SlidesToShow bigger then 1.
+    setCurrentSlide(number = this.#firstSlideIndex) {
+        this.#firstSlideIndex = number;
+        this.#positionX = (this.#slides[0].getWidth + this.#margins) * this.#firstSlideIndex * -1;
+        this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
+
+        this.#setActiveArrow().#setActivePaginationBtn();
+        return this;
     }
 
     nextSlide() {
+        if (this.#firstSlideIndex === this.#slides.length - 1) return this;
+
         this.#firstSlideIndex += this.#slidesToScroll;
         this.#positionX -= (this.#slides[0].getWidth + this.#margins) * this.#slidesToScroll;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
@@ -330,32 +368,14 @@ class Slider {
     }
 
     prevSlide() {
+        if (this.#firstSlideIndex === 0) return this;
+
         this.#firstSlideIndex -= this.#slidesToScroll;
         this.#positionX += (this.#slides[0].getWidth + this.#margins) * this.#slidesToScroll;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
 
         this.#setActiveArrow().#setActivePaginationBtn();
         return this;
-    }
-
-    // dev
-    get getSliderDOM() {
-        return this.#sliderDOM;
-    }
-
-    // dev
-    get getSlides() {
-        return this.#slides;
-    }
-
-    // dev
-    get getCurrentIndex() {
-        return this.#firstSlideIndex;
-    }
-
-    // dev
-    get isTouchable() {
-        return this.#touchable;
     }
 }
 
@@ -384,7 +404,6 @@ window.addEventListener("load", () => {
                     navigationArrows: true,
                     pagination: false,
                     transition: 0,
-                    touchable: false,
                 }
             }
         }
