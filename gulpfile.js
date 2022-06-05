@@ -24,7 +24,7 @@ import terser from "gulp-terser";
 import babel from "gulp-babel";
 
 // images
-// import imageMin from "gulp-imagemin";
+import imageMin from "gulp-imagemin";
 import webp from "gulp-webp";
 import webpHTML from "./modified_modules/gulp-webp-html-fix/index.js";
 import svgSprite from "gulp-svg-sprite";
@@ -99,15 +99,22 @@ function resetCSS() {
         .pipe(gulp.dest(path.build.css));
 }
 
+function embedYTCSS() {
+    return gulp.src(source_folder + "/lite-yt-embed.css")
+        .pipe(csso())
+        .pipe(rename({ extname: '.min.css' }))
+        .pipe(gulp.dest(path.build.css));
+}
+
 function javaScript() {
     return gulp.src(path.src.js)
         .pipe(fileInclude({
             prefix: "@@"
         }))
-        // .pipe(babel({
-        //     presets: ["@babel/env"]
-        // }))
-        // .pipe(terser())
+        .pipe(babel({
+            presets: ["@babel/env"]
+        }))
+        .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
 }
@@ -181,7 +188,7 @@ function browserSync() {
 
 const clear = () => del(path.clean);
 
-const css = gulp.parallel(sass, resetCSS);
+const css = gulp.parallel(sass, resetCSS, embedYTCSS);
 const js = gulp.parallel(javaScript);
 const build = gulp.parallel(img, svg, svgSprites, fonts, html, css, js);
 export default gulp.series(clear, build, browserSync);

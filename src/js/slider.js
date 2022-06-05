@@ -307,10 +307,10 @@ class Slider {
     }
 
     #makeTouchResponsive() {
-        this.#sliderLineDOM.addEventListener("touchstart", this.#touchStartEvent.bind(this));
-        this.#sliderLineDOM.addEventListener("touchend", this.#touchEndEvent.bind(this));
+        this.#sliderLineDOM.addEventListener("touchstart", this.#touchStartEvent.bind(this),  { passive: true });
+        this.#sliderLineDOM.addEventListener("touchend", this.#touchEndEvent.bind(this),  { passive: true });
 
-        return this;
+        return this;``
     }
 
     #touchStartEvent(event) {
@@ -333,14 +333,14 @@ class Slider {
             touchDinstance > 0 &&
             Math.abs(touchDinstance) > (touchDinstance * 65) / 100
         ) {
-            this.nextSlide();
+            this.prevSlide();
         }
 
         if (
             touchDinstance < 0 &&
             Math.abs(touchDinstance) > (touchDinstance * 65) / 100
         ) {
-            this.prevSlide();
+            this.nextSlide();
         }
 
         return;

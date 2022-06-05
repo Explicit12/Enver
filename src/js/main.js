@@ -1,7 +1,9 @@
 "use strict"
 
+@@include("./animations.js");
+
 @@include("./template.js");
 
-@@include("./player.js");
+@@include("./lite-yt-embed.js");
 
 @@include("./slider.js");

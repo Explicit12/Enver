@@ -1,5 +1,6 @@
 html {
     overflow-x: hidden;
+    scroll-behavior: smooth;
     width: 100%;
 }
 
@@ -31,6 +32,20 @@ section:not(:first-child) {
 .bg-shape-circle {
     width: 1102px; height: 1092px;
     background: url("./img/css-sprites.png") -8px -2174px;
+}
+
+@supports (background: -webkit-image-set(url("./img/css-sprites.webp") 1x)) {
+    .bg-shape-purple {
+        background: -webkit-image-set(url("./img/css-sprites.webp") 1x) -8px -1091px;
+    }
+
+    .bg-shape-orange {
+        background: -webkit-image-set(url("./img/css-sprites.webp") 1x) -8px -8px;
+    }
+
+    .bg-shape-circle {
+        background: -webkit-image-set(url("./img/css-sprites.png") 1x) -8px -2174px;
+    }
 }
 
 .blurred-shape {

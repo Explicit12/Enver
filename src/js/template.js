@@ -24,12 +24,4 @@ class Template {
                     ${dot.repeat(number)}
                 </div>`;
     }
-
-    static getThumbnailTemplate(imgPath) {
-        return `<img class="thumbnail" src="${imgPath}" alt="thumbnail" loading="lazy"></img>`;
-    }
-
-    static getPlayerBtnTemplate(iconPath) {
-        return `<img class="play-btn" src="${iconPath}" alt="Play" loading="lazy">`
-    }
 }
