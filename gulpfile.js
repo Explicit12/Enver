@@ -24,7 +24,7 @@ import terser from "gulp-terser";
 import babel from "gulp-babel";
 
 // images
-import imagemin from "gulp-imagemin";
+import imagemin, { mozjpeg, optipng, svgo } from "gulp-imagemin";
 import webp from "gulp-webp";
 import webpHTML from "./modified_modules/gulp-webp-html-fix/index.js";
 import svgSprite from "gulp-svg-sprite";
@@ -126,27 +126,50 @@ function img() {
         }))
         .pipe(gulp.dest(path.build.img))
         .pipe(gulp.src(path.src.img))
-        .pipe(imagemin({
-            progressive: true,
-            interlaced: true,
-            optimizationLevel: 3
-        }))
+        .pipe(imagemin([
+            mozjpeg({
+                quality: 75, 
+                progressive: true
+            })
+        ]))
         .pipe(gulp.dest(path.build.img));
 }
 
 function svg() {
     return gulp.src(path.src.svg)
-        .pipe(imagemin({
-            removeViewBox: true
-        }))
+        .pipe(imagemin([
+            svgo({
+                plugins: [
+                    {
+                        name: 'removeViewBox',
+                        active: true
+                    },
+                    {
+                        name: 'cleanupIDs',
+                        active: false
+                    }
+                ]
+            })
+        ]))
         .pipe(gulp.dest(path.build.svg));
 }
 
 function svgSprites() {
     return gulp.src(path.src.svgSprites)
-        .pipe(imagemin({
-            removeViewBox: true 
-        }))
+        .pipe(imagemin([
+            svgo({
+                plugins: [
+                    {
+                        name: 'removeViewBox',
+                        active: true
+                    },
+                    {
+                        name: 'cleanupIDs',
+                        active: false
+                    }
+                ]
+            })
+        ]))
         .pipe(svgSprite({
             shape: {
                 dimension: {
