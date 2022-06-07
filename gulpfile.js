@@ -111,10 +111,10 @@ function javaScript() {
         .pipe(fileInclude({
             prefix: "@@"
         }))
-        .pipe(babel({
-            presets: ["@babel/env"]
-        }))
-        .pipe(terser())
+        // .pipe(babel({
+        //     presets: ["@babel/env"]
+        // }))
+        // .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
 }

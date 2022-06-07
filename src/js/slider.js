@@ -16,11 +16,11 @@ class Slide {
         this.#slideDOM.classList.add("_slider-slide");
     }
 
-    get getWidth() {
+    getWidth() {
         return this.#slideDOM.offsetWidth;
     }
 
-    get getSlideDOM() {
+    getSlideDOM() {
         return this.#slideDOM;
     }
 }
@@ -41,6 +41,7 @@ class Slider {
     #pagination;
     #navigationArrows;
     #adaptive;
+    #appearanceAnimation;
 
     #arrowsDOM;
     #paginationDOM;
@@ -59,6 +60,7 @@ class Slider {
           pagination = false,
           navigationArrows = true,
           adaptive = false,
+          appearanceAnimation = false,
         } = {}
         ) {
         this.#sliderDOM = document.querySelector(selector);
@@ -77,6 +79,7 @@ class Slider {
         this.#pagination = pagination;
         this.#navigationArrows = navigationArrows;
         this.#adaptive = adaptive;
+        this.#appearanceAnimation = appearanceAnimation;
 
         this.#initialSettings = {
             slidesToShow: slidesToShow,
@@ -97,7 +100,7 @@ class Slider {
     #addSliderLine() {
         this.#sliderDOM.insertAdjacentHTML("afterBegin", Template.getSliderLineTemplate());
         this.#sliderLineDOM = this.#sliderDOM.children[0];
-        this.#slides.forEach(slide => this.#sliderLineDOM.append(slide.getSlideDOM));
+        this.#slides.forEach(slide => this.#sliderLineDOM.append(slide.getSlideDOM()));
 
         this.#sliderLineDOM.style.transform = `translate(${0}px)`;
         this.#positionX = Number(this.#sliderLineDOM.style.transform.match(/\d/g));
@@ -135,6 +138,7 @@ class Slider {
             this.#transition = currentBreakpointSettings.transition;
             this.#pagination = currentBreakpointSettings.pagination;
             this.#navigationArrows = currentBreakpointSettings.navigationArrows;
+            this.#appearanceAnimation = currentBreakpointSettings.appearanceAnimation;
 
             this.#applySettings();
 
@@ -173,7 +177,7 @@ class Slider {
         let newSliderWidth = 0;
         this.#slides.some((slide, index) => {
             if (this.#slidesToShow === 1) {
-                newSliderWidth += slide.getWidth;
+                newSliderWidth += slide.getWidth();
                 return true;
             }
 
@@ -181,7 +185,7 @@ class Slider {
                 this.#firstSlideIndex === this.#slides.length - 1 ||
                 this.#firstSlideIndex + (this.#slidesToShow - 1) > this.#slides.length - 1 
             ) {
-                newSliderWidth += slide.getWidth * this.#slidesToShow + this.#margins * (this.#slidesToShow - 1);
+                newSliderWidth += slide.getWidth() * this.#slidesToShow + this.#margins * (this.#slidesToShow - 1);
                 return true;
             }
 
@@ -189,13 +193,13 @@ class Slider {
                 index > this.#firstSlideIndex &&
                 index === this.#firstSlideIndex + this.#slidesToShow - 1
             ) {
-                newSliderWidth += slide.getWidth;
-                newSliderWidth += slide.getWidth + this.#margins;
+                newSliderWidth += slide.getWidth();
+                newSliderWidth += slide.getWidth() + this.#margins;
             } else if (
                 index > this.#firstSlideIndex &&
                 index < this.#firstSlideIndex + this.#slidesToShow
             ) {
-                newSliderWidth += slide.getWidth + this.#margins;
+                newSliderWidth += slide.getWidth() + this.#margins;
             }
         });
 
@@ -206,7 +210,7 @@ class Slider {
     #setMargins() {
         this.#slides.forEach((slide, index) => {
             if (index > 0) {
-                slide.getSlideDOM.style.marginLeft = this.#margins + "px";
+                slide.getSlideDOM().style.marginLeft = this.#margins + "px";
             }
         });
 
@@ -310,11 +314,10 @@ class Slider {
         this.#sliderLineDOM.addEventListener("touchstart", this.#touchStartEvent.bind(this),  { passive: true });
         this.#sliderLineDOM.addEventListener("touchend", this.#touchEndEvent.bind(this),  { passive: true });
 
-        return this;``
+        return this;
     }
 
     #touchStartEvent(event) {
-        event.preventDefault();
         event.stopPropagation();
         
         this.#touchStartX = event.touches[0].clientX;
@@ -323,7 +326,6 @@ class Slider {
     }
 
     #touchEndEvent(event) {
-        event.preventDefault();
         event.stopPropagation();
 
         this.#touchEndX = event.changedTouches[0].clientX;
@@ -346,10 +348,23 @@ class Slider {
         return;
     }
 
+    #playAnimation() {
+        this.#slides.forEach((slide, index) => {
+            if (
+                index >= this.#firstSlideIndex &&
+                index <= this.#firstSlideIndex + this.#slidesToShow
+            ) {
+                Animate.show(slide.getSlideDOM(), 1000);
+            }
+        });
+
+        return this;
+    }
+
     // It's the first slide index if SlidesToShow bigger then 1.
     setCurrentSlide(number = this.#firstSlideIndex) {
         this.#firstSlideIndex = number;
-        this.#positionX = (this.#slides[0].getWidth + this.#margins) * this.#firstSlideIndex * -1;
+        this.#positionX = (this.#slides[0].getWidth() + this.#margins) * this.#firstSlideIndex * -1;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
 
         this.#setActiveArrow().#setActivePaginationBtn();
@@ -360,8 +375,10 @@ class Slider {
         if (this.#firstSlideIndex === this.#slides.length - 1) return this;
 
         this.#firstSlideIndex += this.#slidesToScroll;
-        this.#positionX -= (this.#slides[0].getWidth + this.#margins) * this.#slidesToScroll;
+        this.#positionX -= (this.#slides[0].getWidth() + this.#margins) * this.#slidesToScroll;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
+                
+        if (this.#appearanceAnimation) this.#playAnimation();
         
         this.#setActiveArrow().#setActivePaginationBtn();
         return this;
@@ -371,18 +388,18 @@ class Slider {
         if (this.#firstSlideIndex === 0) return this;
 
         this.#firstSlideIndex -= this.#slidesToScroll;
-        this.#positionX += (this.#slides[0].getWidth + this.#margins) * this.#slidesToScroll;
+        this.#positionX += (this.#slides[0].getWidth() + this.#margins) * this.#slidesToScroll;
         this.#sliderLineDOM.style.transform = `translate(${this.#positionX}px)`;
+
+        if (this.#appearanceAnimation) this.#playAnimation();
 
         this.#setActiveArrow().#setActivePaginationBtn();
         return this;
     }
 }
 
-let slider = null;
-
 window.addEventListener("load", () => {
-    slider = new Slider(
+    const slider = new Slider(
         "#slider",
         {
             slidesToShow: 1,
@@ -404,6 +421,7 @@ window.addEventListener("load", () => {
                     navigationArrows: true,
                     pagination: false,
                     transition: 0,
+                    appearanceAnimation: true,
                 }
             }
         }
