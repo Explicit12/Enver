@@ -53,6 +53,10 @@ section:not(:first-child) {
     z-index: -1;
 }
 
+.abstract-shape {
+    transition: opacity 500ms ease-out;
+}
+
 .abstract-shape, .blurred-shape {
     position: absolute;
     user-select: none;

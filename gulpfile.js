@@ -3,10 +3,11 @@
 // main section
 import gulp from "gulp";
 import rename from "gulp-rename";
+import exec from "gulp-exec";
+import del from "del";
 
 // browser sync
 import sync from "browser-sync";
-import del from "del";
 
 // html
 import fileInclude from "gulp-file-include";
@@ -106,15 +107,17 @@ function embedYTCSS() {
         .pipe(gulp.dest(path.build.css));
 }
 
-function javaScript() {
+function bundleJS() {
     return gulp.src(path.src.js)
-        .pipe(fileInclude({
-            prefix: "@@"
+        .pipe(exec(file => "rollup ./src/js/main.js --file ./dist/js/bundle.js --format iife"));   
+}
+
+function javaScript() {
+    return gulp.src(`${project_folder}/js/bundle.js`)
+        .pipe(babel({
+            presets: ["@babel/env"]
         }))
-        // .pipe(babel({
-        //     presets: ["@babel/env"]
-        // }))
-        // .pipe(terser())
+        .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
 }
@@ -212,6 +215,6 @@ function browserSync() {
 const clear = () => del(path.clean);
 
 const css = gulp.parallel(sass, resetCSS, embedYTCSS);
-const js = gulp.parallel(javaScript);
+const js = gulp.series(bundleJS, javaScript);
 const build = gulp.parallel(img, svg, svgSprites, fonts, html, css, js);
 export default gulp.series(clear, build, browserSync);
