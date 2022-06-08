@@ -1,3 +1,6 @@
+import { Animate } from "./animations";
+import { Template } from "./template";
+
 // The slider is able to be adaptive, in that case slider is mobile first
 // and we have to put the adaptive property into this settings object.
 // The setting property is also an object, where is keys are resolution in px
@@ -25,7 +28,7 @@ class Slide {
     }
 }
 
-class Slider {
+export class Slider {
     #initialSettings;
 
     #sliderDOM;
@@ -397,33 +400,3 @@ class Slider {
         return this;
     }
 }
-
-window.addEventListener("load", () => {
-    const slider = new Slider(
-        "#slider",
-        {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            navigationArrows: false,
-            pagination: true,
-            transition: 250,
-
-            adaptive: {
-                720: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    margins: 24,
-                },
-
-                1180: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    navigationArrows: true,
-                    pagination: false,
-                    transition: 0,
-                    appearanceAnimation: true,
-                }
-            }
-        }
-    );
-});

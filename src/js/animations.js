@@ -1,8 +1,7 @@
-class Animate {
+export class Animate {
     static show(target, duration) {
         const startTime = performance.now();
         const targetDOM = target;
-        console.log(targetDOM);
 
         targetDOM.style.opacity = 0;
 
