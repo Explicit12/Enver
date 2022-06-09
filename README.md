@@ -29,8 +29,8 @@ You need only one command to build the project, but it requires node.js, npm to 
     gulp
 
 ## Credits
-Design: [Fauzan Aedhiansyah](https://www.figma.com/community/file/1058842196634115002/Digital-Agency-Website---Freebie "Fauzan Aedhiansyah")
-lite-youtube-embed: [paulirish](https://github.com/paulirish/lite-youtube-embed "paulirish")
+- Design: [Fauzan Aedhiansyah](https://www.figma.com/community/file/1058842196634115002/Digital-Agency-Website---Freebie "Fauzan Aedhiansyah")
+- lite-youtube-embed: [paulirish](https://github.com/paulirish/lite-youtube-embed "paulirish")
 
 ## MIT License
 
