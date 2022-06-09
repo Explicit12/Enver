@@ -5,10 +5,12 @@
     .nav-item {
         @include nunito-font(1.125rem, 1);
         color: $grey;
+        transition: color 250ms;
     }
 
     .nav-item:hover {
         color: #fff;
         cursor: pointer;
+        transition: color 250ms;
     }
 }

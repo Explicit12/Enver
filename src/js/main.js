@@ -3,11 +3,14 @@
 import Slider from "./slider";
 import ScrollObserver from "./scrollObserver";
 import LiteYTEmbed from "./lite-yt-embed";
+import MobileMenu from "./mobileMenu";
 
 customElements.define('lite-youtube', LiteYTEmbed);
 ScrollObserver.showInView(document.querySelectorAll(".abstract-shape"));
 
 window.addEventListener("load", () => {
+    MobileMenu.init()
+    
     const slider = new Slider(
         "#slider",
         {

@@ -114,10 +114,10 @@ function bundleJS() {
 
 function javaScript() {
     return gulp.src(`${project_folder}/js/bundle.js`)
-        .pipe(babel({
-            presets: ["@babel/env"]
-        }))
-        .pipe(terser())
+        // .pipe(babel({
+        //     presets: ["@babel/env"]
+        // }))
+        // .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
 }
@@ -205,12 +205,11 @@ function browserSync() {
         gulp.watch(path.watch.html_modules, gulp.series(html)).on("change", sync.reload),
         gulp.watch(path.watch.scss, gulp.series(sass)).on("change", sync.reload),
         gulp.watch(path.watch.scss_modules, gulp.series(sass)).on("change", sync.reload),
-        gulp.watch(path.watch.js, gulp.series(js)).on("change", sync.reload),
+        gulp.watch(path.watch.js, js).on("change", sync.reload),
         gulp.watch(path.watch.img, gulp.series(img)).on("change", sync.reload),
         gulp.watch(path.watch.svg, gulp.series(svg, svgSprites)).on("change", sync.reload)
         gulp.watch(path.watch.fonts, gulp.series(fonts)).on("change", sync.reload)
 }
-
 
 const clear = () => del(path.clean);
 

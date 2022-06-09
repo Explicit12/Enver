@@ -1,0 +1,61 @@
+.mobile-menu {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: $black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem 1rem;
+    margin-top: -100vh;
+
+    transition: margin-top ease-in 300ms;
+}
+
+.mobile-menu-opened {
+    margin-top: 0;
+    transition: margin-top ease-out 300ms;
+}
+
+.mobile-menu .menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
+
+    .close-btn {
+        line-height: 0;
+        transform: rotate(45deg);
+    }
+}
+
+.mobile-menu .nav-list {
+    flex-direction: column; 
+}
+
+.mobile-menu .nav-list .nav-item {
+    text-align: center;
+}
+
+.mobile-menu .mobile-credits-list {
+    display: flex;
+    gap: 2rem;
+}
+
+.mobile-menu .mobile-credits-list .credit-icon {
+    filter: grayscale(1);
+    transition: filter 250ms;
+}
+
+.mobile-menu .mobile-credits-list .credit-icon:hover {
+    filter: grayscale(0);
+    transition: filter 250ms;
+    cursor: pointer;
+}
