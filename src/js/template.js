@@ -1,4 +1,4 @@
-export class Template {
+export default class Template {
     static getSliderLineTemplate() {
         return `<div class="_slider-line"></div>`;
     }

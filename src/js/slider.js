@@ -1,5 +1,5 @@
-import { Animate } from "./animations";
-import { Template } from "./template";
+import Animate from "./animations";
+import Template from "./template";
 
 // The slider is able to be adaptive, in that case slider is mobile first
 // and we have to put the adaptive property into this settings object.
@@ -28,7 +28,7 @@ class Slide {
     }
 }
 
-export class Slider {
+export default class Slider {
     #initialSettings;
 
     #sliderDOM;

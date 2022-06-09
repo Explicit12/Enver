@@ -1,4 +1,4 @@
-export class Animate {
+export default class Animate {
     static show(target, duration) {
         const startTime = performance.now();
         const targetDOM = target;

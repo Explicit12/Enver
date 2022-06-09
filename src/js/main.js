@@ -1,8 +1,8 @@
 "use strict"
 
-import { Slider } from "./slider";
-import { ScrollObserver } from "./scrollObserver";
-import { LiteYTEmbed } from "./lite-yt-embed";
+import Slider from "./slider";
+import ScrollObserver from "./scrollObserver";
+import LiteYTEmbed from "./lite-yt-embed";
 
 customElements.define('lite-youtube', LiteYTEmbed);
 ScrollObserver.showInView(document.querySelectorAll(".abstract-shape"));

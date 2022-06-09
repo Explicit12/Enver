@@ -11,6 +11,25 @@
     text-align: center;
 }
 
+.footer .footer-second .credits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .credit-item {
+        text-decoration: underline;
+        text-align: center;
+        font-size: 0.75rem;
+        transition: color 250ms;
+    }
+
+    .credit-item:hover {
+        cursor: pointer;
+        color: $purple;
+        transition: color 250ms;
+    }
+} 
+
 @media only screen and (min-width: 720px) {
     .footer .nav-list {
         flex-direction: row;
@@ -20,7 +39,21 @@
 
 @media only screen and (min-width: 1024px) {
     .footer {
+        flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .footer-second {
+        flex-basis: 100%;
+    }
+
+    .footer-second .credits-list {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .footer-second .credits-list .credit-item {
+        text-align: left;
     }
 }

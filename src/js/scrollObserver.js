@@ -1,4 +1,4 @@
-export class ScrollObserver {
+export default class ScrollObserver {
     static isInViewport(element) {
         const rect = element.getBoundingClientRect();
         return (
