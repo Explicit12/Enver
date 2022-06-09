@@ -16,7 +16,7 @@ Enver this is front end part of landing page written with vanilla JavaScript. It
 - Animation on scroll
 
 ## Building
-You need only one command to build the project, but it requers node.js, npm to be pre-installed.
+You need only one command to build the project, but it requires node.js, npm to be pre-installed.
 
 ### Install dependecies
     npm install --global rollup
