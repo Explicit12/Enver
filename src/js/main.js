@@ -19,12 +19,13 @@ window.addEventListener("load", () => {
             navigationArrows: false,
             pagination: true,
             transition: 250,
+            margins: 24,
 
             adaptive: {
                 720: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    margins: 24,
+                    overflowX: false,
                 },
 
                 1180: {

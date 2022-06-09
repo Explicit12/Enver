@@ -45,6 +45,7 @@ export default class Slider {
     #navigationArrows;
     #adaptive;
     #appearanceAnimation;
+    #overflowX;
 
     #arrowsDOM;
     #paginationDOM;
@@ -64,6 +65,7 @@ export default class Slider {
           navigationArrows = true,
           adaptive = false,
           appearanceAnimation = false,
+          overflowX = true,
         } = {}
         ) {
         this.#sliderDOM = document.querySelector(selector);
@@ -83,6 +85,7 @@ export default class Slider {
         this.#navigationArrows = navigationArrows;
         this.#adaptive = adaptive;
         this.#appearanceAnimation = appearanceAnimation;
+        this.#overflowX = overflowX;
 
         this.#initialSettings = {
             slidesToShow: slidesToShow,
@@ -91,6 +94,8 @@ export default class Slider {
             transition: transition,
             pagination: pagination,
             navigationArrows: navigationArrows,
+            appearanceAnimation: appearanceAnimation,
+            overflowX: overflowX,
         }
 
         // Slider init.
@@ -114,6 +119,7 @@ export default class Slider {
     #applySettings() {
         this.#setSliderWidth()
             .#setMargins()
+            .#setOverflowX()
             .#setTransition()
             .#addArrows()
             .#addPagination();
@@ -142,6 +148,7 @@ export default class Slider {
             this.#pagination = currentBreakpointSettings.pagination;
             this.#navigationArrows = currentBreakpointSettings.navigationArrows;
             this.#appearanceAnimation = currentBreakpointSettings.appearanceAnimation;
+            this.#overflowX = currentBreakpointSettings.overflowX;
 
             this.#applySettings();
 
@@ -216,6 +223,12 @@ export default class Slider {
                 slide.getSlideDOM().style.marginLeft = this.#margins + "px";
             }
         });
+
+        return this;
+    }
+
+    #setOverflowX() {
+        this.#sliderDOM.style.overflowX = this.#overflowX ? "visible" : "hidden";
 
         return this;
     }
