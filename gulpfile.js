@@ -37,6 +37,7 @@ const path = {
     build: {
         html: `${project_folder}/`,
         css: `${project_folder}/`,
+        favicon: `${project_folder}/`,
         pages: `${project_folder}/pages`,
         js: `${project_folder}/js`,
         img: `${project_folder}/img`,
@@ -48,6 +49,7 @@ const path = {
     src: {
         html: `${source_folder}/index.html`,
         pages: `${source_folder}/pages/*.html`,
+        favicon: `${source_folder}/*.ico`,
         scss: `${source_folder}/style.scss`,
         js: `${source_folder}/js/main.js`,
         img: `${source_folder}/img/**/**`,
@@ -194,6 +196,11 @@ function fonts() {
         .pipe(gulp.dest(path.build.fonts));
 }
 
+function favicon() {
+    return gulp.src(path.src.favicon)
+        .pipe(gulp.dest(path.build.favicon));
+}
+
 function browserSync() {
     sync.init({
         server: { baseDir: "./" + project_folder + "/" },
@@ -215,5 +222,5 @@ const clear = () => del(path.clean);
 
 const css = gulp.parallel(sass, resetCSS, embedYTCSS);
 const js = gulp.series(bundleJS, javaScript);
-const build = gulp.parallel(img, svg, svgSprites, fonts, html, css, js);
+const build = gulp.parallel(img, svg, svgSprites, fonts, favicon, html, css, js);
 export default gulp.series(clear, build, browserSync);
