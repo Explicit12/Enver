@@ -116,10 +116,10 @@ function bundleJS() {
 
 function javaScript() {
     return gulp.src(`${project_folder}/js/bundle.js`)
-        // .pipe(babel({
-        //     presets: ["@babel/env"]
-        // }))
-        // .pipe(terser())
+        .pipe(babel({
+            presets: ["@babel/env"]
+        }))
+        .pipe(terser())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(path.build.js));
 }
