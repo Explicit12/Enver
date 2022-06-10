@@ -9,6 +9,10 @@
     display: revert;
 }
 
+a {
+    color: inherit;
+}
+
 /* Preferred box-sizing value */
 *,
 *::before,
