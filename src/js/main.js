@@ -27,7 +27,6 @@ window.addEventListener("load", () => {
                 720: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    overflowX: false,
                 },
 
                 1180: {
@@ -37,6 +36,7 @@ window.addEventListener("load", () => {
                     pagination: false,
                     transition: 0,
                     appearanceAnimation: true,
+                    overflowX: false,
                 }
             }
         }
