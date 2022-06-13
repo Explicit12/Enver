@@ -11,9 +11,11 @@ Enver this is front end part of landing page written with vanilla JavaScript. It
 - Adaptivity
 - Custom youtube player
 - Vanilla js carusel
- - Adaptive
- - Touch responsive
 - Animation on scroll
+
+
+## Live Demo
+GitHub Pages: https://explicit12.github.io/Enver/
 
 ## Building
 You need only one command to build the project, but it requires node.js, npm to be pre-installed.
