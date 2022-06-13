@@ -706,7 +706,6 @@
                     720: {
                         slidesToShow: 2,
                         slidesToScroll: 2,
-                        overflowX: false,
                     },
 
                     1180: {
@@ -716,6 +715,7 @@
                         pagination: false,
                         transition: 0,
                         appearanceAnimation: true,
+                        overflowX: false,
                     }
                 }
             }
