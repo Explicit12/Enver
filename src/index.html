@@ -9,11 +9,9 @@
     <meta name="google" content="notranslate">
     <meta name="rating" content="General">
 
-    <link rel="icon" sizes="192x192" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" sizes="192x192" type="image/x-icon" href="./public/favicon.ico">
 
-    <link rel="stylesheet preload" as="style" media="none" onload="if(media!='all') media='all'" href="./lite-yt-embed.min.css">
-    <link rel="stylesheet preload" as="style" href="./reset.min.css">
-    <link rel="stylesheet preload" as="style" href="style.min.css">
+    <link rel="stylesheet preload" as="style" href="style.css">
 
     <title>Enver</title>
 </head>
@@ -28,7 +26,7 @@
     </main>
     @@include("./html_modules/blocks/footer.html")
     @@include("./html_modules/blocks/mobile-menu.html")
-    @@include("./html_modules/blocks/loader.html")
-    <script src="./js/bundle.min.js" async></script>
+    @@include("./html_modules/components/loader.html")
+    <script src="./js/main.js" async></script>
 </body>
 </html>

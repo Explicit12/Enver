@@ -18,17 +18,19 @@ Enver this is front end part of landing page written with vanilla JavaScript. It
 GitHub Pages: https://explicit12.github.io/Enver/
 
 ## Building
-You need only one command to build the project, but it requires node.js, npm to be pre-installed.
+node.js v16.15.0 or higher required. After all build steps you will have built project in dist directory. If following steps will not work, try to install gulp globally.
 
-### Install dependecies
-    npm install --global rollup
-    npm install --global gulp-cli
-    
+### Install dependecies    
     cd Enver
     npm install
 
 ### Build with gulp
-    gulp
+    npm run build
+
+## Development mode
+You also can run development mode to built project with sourcemaps and local server.
+
+    npm run dev
 
 ## Credits
 - Design: [Fauzan Aedhiansyah](https://www.figma.com/community/file/1058842196634115002/Digital-Agency-Website---Freebie "Fauzan Aedhiansyah")

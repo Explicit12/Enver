@@ -1,3 +1,4 @@
+@import "./scss_modules/reset";
 @import "./scss_modules/global";
 
 // variables which available in every .scss files
@@ -11,10 +12,12 @@
 @import "./scss_modules/layout";
 
 // buttons, cards, checkboxes etc.
+@import "./scss_modules/components/loader";
 @import "./scss_modules/components/buttons";
 @import "./scss_modules/components/service-item";
 @import "./scss_modules/components/nav-list";
 @import "./scss_modules/components/slider";
+@import "./scss_modules/components/lite-yt-embed";
 
 // blocks;
 @import "./scss_modules/blocks/header";
@@ -24,4 +27,3 @@
 @import "./scss_modules/blocks/offer";
 @import "./scss_modules/blocks/footer";
 @import "./scss_modules/blocks/mobile-menu";
-@import "./scss_modules/blocks/loader";
