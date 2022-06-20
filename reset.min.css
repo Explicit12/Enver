@@ -1,1 +1,0 @@
-:where(:not(iframe, canvas, img, svg, video):not(svg *, symbol *)){all:unset;display:revert}a{color:inherit}*,::after,::before{box-sizing:border-box}ol,ul{list-style:none}img{max-width:100%}table{border-collapse:collapse}textarea{white-space:revert}
