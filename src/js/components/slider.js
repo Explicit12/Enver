@@ -1,4 +1,4 @@
-import Animate from "../helpers/animations";
+import Keyframes from "../helpers/animations";
 import Template from "../helpers/template";
 import Slide from "./slide";
 
@@ -323,7 +323,7 @@ export default class Slider {
   #playAnimation() {
     this.#slides.forEach((slide, index) => {
       if (index >= this.#firstSlideIndex && index <= this.#firstSlideIndex + this.#slidesToShow) {
-        Animate.show(slide.getSlideDOM(), 1000);
+        slide.getSlideDOM().animate(Keyframes.showFrames, 1000);
       }
     });
 

@@ -1,4 +1,4 @@
-import Animate from "../helpers/animations";
+import Keyframes from "../helpers/animations";
 
 export default class PageLoader {
   static #loaderDOM = document.querySelector(".loader-cover");
@@ -11,7 +11,7 @@ export default class PageLoader {
   }
 
   static #removeLoader() {
-    Animate.hide(this.#loaderDOM, 3500);
+    this.#loaderDOM.animate(Keyframes.hide, 1000);
     this.#htmlElem.style.overflowY = "visible";
     this.#loaderDOM.remove();
     return this;

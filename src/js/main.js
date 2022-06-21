@@ -1,13 +1,14 @@
 "use strict";
 
 import Slider from "./components/slider";
-import ScrollObserver from "./helpers/scrollObserver";
+import ShowInView from "./helpers/showInView";
 import LiteYTEmbed from "./components/lite-yt-embed";
 import MobileMenu from "./components/mobileMenu";
 import PageLoader from "./components/loader";
 
 customElements.define("lite-youtube", LiteYTEmbed);
-ScrollObserver.showInView(document.querySelectorAll(".abstract-shape"));
+ShowInView.init().show([...document.querySelectorAll(".abstract-shape")]);
+
 PageLoader.init();
 
 window.addEventListener("load", () => {

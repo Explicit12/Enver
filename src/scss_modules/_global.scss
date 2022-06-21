@@ -11,6 +11,10 @@ body {
     width: 100%
 }
 
+button {
+    user-select: none;
+}
+
 section:not(:first-child) {
     margin-top: 140px;
 }
